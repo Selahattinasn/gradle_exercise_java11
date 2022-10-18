@@ -1,4 +1,4 @@
-FROM openjdk:17-alpine
+FROM openjdk:11-alpine
 WORKDIR /temporary
 COPY build/libs/containertest-0.0.1-SNAPSHOT.jar .
 EXPOSE 8080

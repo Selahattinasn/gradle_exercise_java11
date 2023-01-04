@@ -1,6 +1,6 @@
 node {
 
-     stage('./gradlew clean') {
+     stage('gradle clean') {
         sh 'gradle tasks'
         sh 'gradle clean'
     }

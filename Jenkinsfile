@@ -1,7 +1,7 @@
 node {
 
      stage('./gradlew clean') {
-        sh ' gradle clean '
+        sh './gradlew clean'
     }
      stage('Git Clone') {
 
@@ -9,7 +9,7 @@ node {
     }
 
     stage('gradle build') {
-        sh './gradlew build '
+        sh './gradlew build'
     }
 }
  

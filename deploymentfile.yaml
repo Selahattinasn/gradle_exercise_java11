@@ -1,0 +1,38 @@
+
+   
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springapp-deployment
+  labels:
+    app: springapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: springapp
+  template:
+    metadata:
+      labels:
+        app: springapp 
+    spec:
+      containers:
+      - name: springcontainer
+        image: sennurmiray/contest_11:latest
+        ports:
+        - containerPort: 3000
+        
+        
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: springapp-service
+spec:
+  selector:
+    app: springapp 
+  type: ClusterIP
+  ports:
+    - targetPort: 3000
+      port: 3000

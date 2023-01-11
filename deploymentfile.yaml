@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: springcontainer
-        image: sennurmiray/contest_11:latest
+        image: sennurmiray/snapshotintegration:latest
         ports:
         - containerPort: 3000
         

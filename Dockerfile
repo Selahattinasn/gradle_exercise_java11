@@ -1,4 +1,4 @@
-FROM openjdk:11-alpine
+FROM adoptopenjdk/openjdk11
 WORKDIR /temporary
 COPY build/libs/containertest-0.0.1-SNAPSHOT.jar .
 EXPOSE 8080

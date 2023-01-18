@@ -49,7 +49,7 @@ pipeline {
             }
         }
         
-        stage('deploy kube') {
+        stage('test') {
             agent {label 'jenkins'}
          steps {
          sh 'uname'

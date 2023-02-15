@@ -1,5 +1,7 @@
 # Project: Einrichtung von  Kontiniuerliche Integration/ kontiniuerliche Deployment Pipeline mit Jenkins 
 
+![CICD!](images/CICD2.png)
+
 # Gliederung 
 
 A. Bereitstellung von Servern
@@ -136,6 +138,8 @@ ssh selo@jenkins
 ```
 
 ## 2. Installation von Jenkins Server 
+
+![CICD!](images/jenkinsprofil.png)
 
 a. Update und Installation von Git, Docker, Docker-Compose OpenJDK.11, Gradle
 
@@ -277,15 +281,17 @@ Um Ihre Installation einzurichten, besuchen Sie Jenkins auf dem Standardport 808
 
 Sie sollten den Bildschirm „Jenkins entsperren“ erhalten, der den Speicherort des anfänglichen Passworts anzeigt:
 
-image.png
+![unlock!](images/unlockJenkins.png)
 
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
-image.png
+![admin!](images/firstAdmin.png)
 
-image.png
+![costomize!](images/costomizeJenkins.png)
 
-image.png
+![start!](images/getStart.png)
+
+![ready!](images/jenkinsReady.png)
 
 ## Auf Wunch kann Jenkins Server als Docker-Container installiert wurden. 
 
@@ -500,6 +506,8 @@ curl $(minikube service springapp-service --url)
 ## 1. Global Tool Konfigurationen
 Wir öffnen http://<IP_jenkinsServer>:8080. Danach gehen wir auf Dashboard/Manage_Jenkins/Global_Tool_Configurations.
 
+![global!](images/globalTool.png)
+
 ##	a. Spezifizierung der Home Directory von Git
 
 
@@ -511,23 +519,34 @@ Wir öffnen http://<IP_jenkinsServer>:8080. Danach gehen wir auf Dashboard/Manag
      
      " which git"
 
+![git1!](images/gtcGit1.png)
+
+![git2!](images/gtcGit2.png)
+
 ##		b. Spezifizierung der Home Directory von Docker
-    gehen wir auf JDK-Feld, und wir geben ein :
+    gehen wir auf Docker-Feld, und wir geben ein :
     Name: docker-<version>
     JAVA_HOME: /usr/bin/docker
 
     ### Wenn die Path von Home_Direktory nicht bekannt, kann es mit which befehl determiniert werden. 
      
      " which docker"
+![Docker1!](images/gtcDocker1.png)
+
+![Docker2!](images/gtcDocker2.png)
 
 ##		c. Spezifizierung der Home Directory von OpenJDK-11
-    gehen wir auf Docker-Feld, und wir geben ein :
+    gehen wir auf Java-Feld, und wir geben ein :
     Name: java-11
     JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
 
     ### Wenn die Path von Home_Direktory nicht bekannt, kann es mit which befehl determiniert werden. 
      
      " which java"
+
+![Java1!](images/gtcJava1.png)
+
+![Java2!](images/gtcJava2.png)
 
 ##		d. Spezifizierung der Home Directory von Gradle
      gehen wir auf Gradle-Feld, und wir geben ein :
@@ -537,6 +556,10 @@ Wir öffnen http://<IP_jenkinsServer>:8080. Danach gehen wir auf Dashboard/Manag
     ### Wenn die Path von Home_Direktory nicht bekannt, kann es mit which befehl determiniert werden. 
      
      " which gradle"
+
+![Gradle1!](images/gtcGradle1.png)
+
+![Gradle2!](images/gtcGradle2.png)
 
 ## 2. Docker-Registry Server und Deployment Server als Agent Knoten von Jenkins Konfigurieren
 
@@ -587,6 +610,10 @@ Dazu müssen wir eine SSH_Verbindung zwischen Jenkins_Server and Agent Node setz
 - Überprüfen die Konsolenprotokolle, falls der Agent-Knoten nicht gestartet werden kann. Wenn es ein Genehmigungsproblem gibt, gehen zu „Manage Jenkins“, wählen „`In-process Script Approval“ und „approve“ Sie das Skript.
 - Gehen zum Jenkins-Dashboard. Überprüfen die Master- und Slave-Knoten im linken Menü.
 
+![Node1!](images/gtcNode1.png)
+![Node2!](images/gtcNode2.png)
+![Node3!](images/gtcNode3.png)
+![Node4!](images/gtcNode4.png)
 
 ## C. CI/CD Pipeline Durchführen
 Jenkins Pipeline (oder einfach „Pipeline“) ist eine Suite von Plugins, die die Implementierung und Integration von Continuous-Delivery-Pipelines in Jenkins unterstützt.
@@ -595,7 +622,7 @@ Jenkins-Pipelines können mithilfe einer Textdatei namens JenkinsFile definiert 
 Es gibt zwei Arten von Syntax, die zum Definieren Ihrer JenkinsFile verwendet werden.
 
 ## 1. Deklarativ: Die deklarative Pipeline-Syntax bietet eine einfache Möglichkeit, Pipelines zu erstellen. Es enthält eine vordefinierte Hierarchie zum Erstellen von Jenkins-Pipelines.
-
+![board!](images/pipelineBoard.png)
 Jenkinsfile (Deklerative Pipeline)
 …
 	pipeline {
@@ -731,3 +758,6 @@ pipeline {
 
 Wenn ist alles bereit, drucken wir apply && save , danach auf dem Dashboard drucken wir " Build " konoten. Wir könner den Prozessverfahren sowohl auf dem GUI als auch im Koncoleoutpu sehen.
 
+![stage!](images/stageView.png)
+![consoleSuccess!](images/consoleSuccess.png)
+![success!](images/success.png)

@@ -1,0 +1,31 @@
+Eigenschaften des CI/CD-Systems:
+
+- Die Docker-Container-Technologie wird in jeder Phase als dominierendes Element eingesetzt. Ziel ist es, die einfachen Speicherung- und Nutzungsmöglichkeiten zu nutzen, die der multi-layer Aufbau von Containern bietet.
+- Es wurden Software und Skripte verwendet, die es dem System ermöglichen, jeden möglichen Prozess zu automatisieren.
+- Es wurde die deklarative Methode verwendet. Somit ist es möglich geworden, die Objekte und Konfigurationen jeder Stufe wiederzuverwenden und zu modifizieren und viel einfacher erneut einzusetzen.
+
+STRONG
+
+- Eine erhebliche Menge an Zeit im Entwicklunsprozess wird eingespart, indem die Prozesse des Pushens des Quellcodes an das Versionskontrollsystem, des Abrufens des Quellcodes, des Testens, der Umwandlung in ein ausführbares Binärpaket, der Umwandlung in ein Docker-Image und des Sendens an ein privates Repo, das im Kubernetes-Cluster bereitgestellt wird.
+- Die für diese Prozesse verwendete BetriebSystems und Software sind kostenlos.
+- Dank seiner deklarativen Struktur eignet sich das System für eine einfache Aktualisierung und Entwicklung.
+- Das System ist einfach zu bedienen und leicht zu erlernen, obwohl die Installationsphase viel Zeit und Mühe kostet.
+- Dieses System basiert auf Linux Betriebssystem. Linux ist betrachted als sehr stabil und sicheres System. 
+
+
+WEAK
+
+- Diese sogenante Pipeline System ensteht von mehreren unabhängigen Systems. Und Auf eine Versioningsveränderung kann Wartungsarbeit benötogt werden. 
+- Die private Atrifaktory Software wie Nexus Artigfactory, Jfrog Artifactory sind teuer. 
+- Dieses System basiert auf Linux Betriebssystem. Die Wartungsarbeit erfordert Linuxkenntnisse. Obwoh Linux ist berühmt als ein stabil, sicher und vertrauliche System, auch ist benötigt gewisse Kenntnisse. 
+
+
+OPPORTINITES
+- Mögliche menschliche Fehler werden dank für deklarierter Konfigurationen vermieden.
+- CI/CD-Systeme tragen zur Wettbewerbsfähigkeit des Unternehmens bei.
+- durch die Anwendung von Technologien wie Vagrant und Vagrantfiles oder Terraform und Terraform Configurations Files können Provisionierungssvorgänge automatisiert werden.
+- durch die Anwendung von Technologien wie Ansible und Ansible Playbook können Konfigurationsvorgänge für virtuelle Maschinen automatisiert werden.
+- durch die Anwendung von Technologien Helm und Helm-Charts können Rollback und Rollaut Verfahren viel einfach durhgeführt werden.
+
+THREATS
+- Die Verwendung CI/CD Pipelines erfordert dauerhaftige Lernen die diesbezügliche Technologien. 

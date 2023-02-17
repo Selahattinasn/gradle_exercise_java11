@@ -1,5 +1,4 @@
 
-   
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,15 +13,20 @@ spec:
   template:
     metadata:
       labels:
-        app: springapp 
+        app: springapp
     spec:
       containers:
       - name: springapp-container
         image: sennurmiray/snapshotintegration
         ports:
         - containerPort: 8080
+<<<<<<< HEAD
         
         
+=======
+
+
+>>>>>>> main
 ---
 
 apiVersion: v1
@@ -31,9 +35,17 @@ metadata:
   name: springapp-service
 spec:
   selector:
+<<<<<<< HEAD
     app: springapp 
+=======
+    app: springapp
+>>>>>>> main
   type: NodePort
   ports:
     - nodePort: 30456
       targetPort: 8080
+<<<<<<< HEAD
       port: 9898
+=======
+      port: 9898
+>>>>>>> main

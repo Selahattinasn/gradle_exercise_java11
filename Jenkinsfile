@@ -13,18 +13,23 @@ pipeline {
                 sh 'gradle build'
                 sh 'whoami'
             }
-            
         }
+
         stage('Build Docker Image') {
             agent {label 'jenkins'}
             steps {
                script{
                    sh 'docker build -t sennurmiray/snapshotintegration . '
                    sh 'docker tag sennurmiray/snapshotintegration:latest docker.registry:5000/selo/sennurmiray/snapshotintegration:v1 '
+<<<<<<< HEAD
                }
                 
+=======
+               } 
+>>>>>>> main
             }
         }
+
         stage('Push Docker Image') {
             agent {label 'jenkins'}
             steps {
@@ -35,29 +40,46 @@ pipeline {
                     sh 'docker push  sennurmiray/snapshotintegration '
                     sh 'docker push  docker.registry:5000/selo/sennurmiray/snapshotintegration:v1 '
                }
-                
             }
         }
         
+<<<<<<< HEAD
  
+=======
+>>>>>>> main
         
         stage('Send Docker Image') {
             agent {label 'jenkins'}
             steps {
+<<<<<<< HEAD
               sshPublisher(publishers: [sshPublisherDesc(configName: 'jenkins-node', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'pwd', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: './', remoteDirectorySDF: false, removePrefix: 'build/libs/', sourceFiles: 'build/libs/*SNAPSHOT.jar')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])
                 
             }
         }
         
         stage('test') {
+=======
+              sshPublisher(publishers: [sshPublisherDesc(configName: 'jenkins-node', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'pwd', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: './', remoteDirectorySDF: false, removePrefix: 'build/libs/', sourceFiles: 'build/libs/*SNAPSHOT.jar')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])  
+            }
+        }
+        
+        stage('deploy kube') {
+>>>>>>> main
             agent {label 'jenkins'}
          steps {
          sh 'uname'
          sh 'ip r'
+<<<<<<< HEAD
   
              }
          }
         
+=======
+             }
+         }
+        
+        
+>>>>>>> main
         stage('deploy KubeNode') {
             agent {label 'kubeNode'}
              steps {
@@ -73,6 +95,7 @@ pipeline {
                 sh 'runuser -l selahattin -c "kubectl apply -f deploymentfile.yaml"'
                 sh 'sleep 17'
                 sh 'runuser -l selahattin -c "kubectl get pods"'
+<<<<<<< HEAD
                 
                 }
             }
@@ -82,3 +105,13 @@ pipeline {
 
     }
 }
+=======
+                sh 'runuser -l selahattin -c "curl 192.168.49.2:30456/greeting"'
+                }
+            }
+
+    }
+}
+
+ 
+>>>>>>> main

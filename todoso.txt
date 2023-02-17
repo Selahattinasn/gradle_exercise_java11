@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 Hello Welt Again. For the freedom. 
 Again
 
 www
 helo-welt
 Yes we can.
+=======
+
+>>>>>>> main

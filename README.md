@@ -2,83 +2,82 @@
 
 ![CICD!](images/CICD2.png)
 
-# Gliederung 
 
-A. Bereitstellung von Servern
+## A. Bereitstellung von Servern
 
-1. Bereitstellung von virtuellen Maschinen
+### 1. Bereitstellung von virtuellen Maschinen
 
-		a. Einrichtung von virtuellen Maschinen mit VMVare
+#### a. Einrichtung von virtuellen Maschinen mit VMVare
 
-		b. Einrichtung von ssh-Verbindungen zwischen virtuellen Maschinen
+####		b. Einrichtung von ssh-Verbindungen zwischen virtuellen Maschinen
 
-		c. Konfigurieren die Firewall
+####		c. Konfigurieren die Firewall
 
-2. Installation von Jenkins Server 
+### 2. Installation von Jenkins Server 
 
-		a. Update und Installation von Git, Docker, Docker-Compose OpenJDK.11, Gradle
+#### a. Update und Installation von Git, Docker, Docker-Compose OpenJDK.11, Gradle
 
-		b. Schreiben von Dockerfile
+#### b. Schreiben von Dockerfile
 
-		c. Installation von Jenkins
+#### c. Installation von Jenkins
 
-3. Installation von Docker-Registry Server
+### 3. Installation von Docker-Registry Server
 
-		a. Update und Installation von Git, Docker, Docker-Compose 
+#### a. Update und Installation von Git, Docker, Docker-Compose 
 
-		b. Schreiben von Docker-Compose File
+#### b. Schreiben von Docker-Compose File
 
-4. Installation von Deployment Server 
+### 4. Installation von Deployment Server 
 
-		a. Update und Installation von Git, Docker, Docker-Compose OpenJDK.11, Gradle
+#### a. Update und Installation von Git, Docker, Docker-Compose OpenJDK.11, Gradle
 
-		b. Schreiben von Deployment und Service files for Kubernetes Cluster
+#### b. Schreiben von Deployment und Service files for Kubernetes Cluster
 
-		c. Installation von Minikube, kubectl
+#### c. Installation von Minikube, kubectl
 
-B. Konfigurationen von Jenkins
+## B. Konfigurationen von Jenkins
 
-1. Global Tool Konfigurationen
+### 1. Global Tool Konfigurationen
 
-		a. Spezifizierung der Home Directory von Git
+#### a. Spezifizierung der Home Directory von Git
 
-		b. Spezifizierung der Home Directory von OpenJDK-11
+#### b. Spezifizierung der Home Directory von OpenJDK-11
 
-		c. Spezifizierung der Home Directory von Docker
+#### c. Spezifizierung der Home Directory von Docker
 
-		d. Spezifizierung der Home Directory von Gradle
+#### d. Spezifizierung der Home Directory von Gradle
 
-2. Docker-Registry Server und Deployment Server als Agent Knoten von Jenkins Konfigurieren
+### 2. Docker-Registry Server und Deployment Server als Agent Knoten von Jenkins Konfigurieren
 
-    a. Konfigurieren der SSH-Verbindung zwischen Master- und Slave-Knoten
+#### a. Konfigurieren der SSH-Verbindung zwischen Master- und Slave-Knoten
 
-    b. die Agentendatei vom Jenkins-Server auf den Slave-Knoten zu kopieren
+#### b. die Agentendatei vom Jenkins-Server auf den Slave-Knoten zu kopieren
 
-C. CI/CD Pipeline Durchführen
+## C. CI/CD Pipeline Durchführen
 
-1. Schreiben von Jenkinsfile
+### 1. Schreiben von Jenkinsfile
 
-2. Durchführung und Validierung
+### 2. Durchführung und Validierung
 
 
 
 
 ## A. Bereitstellung von Servern
 
-## 1. Bereitstellung von virtuellen Maschinen
+### 1. Bereitstellung von virtuellen Maschinen
 
-## a. Einrichtung von virtuellen Maschien 
+#### a. Einrichtung von virtuellen Maschien 
 
-    für jenkinsserver         :  4 GB RAM, 2 kern CPU, 60 GB SATA, Net_Adapter: NAT 
+>> für jenkinsserver         :  4 GB RAM, 2 kern CPU, 60 GB SATA, Net_Adapter: NAT 
 
-    für docker-regisrty-server:  2 GB RAM, 2 kern CPU,60 GB SATA, Net_Adapter: NAT 
+>> für docker-regisrty-server:  2 GB RAM, 2 kern CPU,60 GB SATA, Net_Adapter: NAT 
 
-    für minikube-server       :  4 GB RAM, 2 kern CPU, 60 GB SATA, Net_Adapter: NAT, 
+>> für minikube-server       :  4 GB RAM, 2 kern CPU, 60 GB SATA, Net_Adapter: NAT, 
         
-    OS:Ubuntu 20.04.LTS
+>> OS:Ubuntu 20.04.LTS
 
 
-## b. Einrichtung von ssh Verbindungen zwischen virtuellen Maschien ist eine Voraussetzung. 
+#### b. Einrichtung von ssh Verbindungen zwischen virtuellen Maschien ist eine Voraussetzung. 
 
 sshd (OpenSSH Daemon oder Server) ist das Daemon-Programm für den SSH-Client. Es ist ein kostenloser Open-Source-SSH-Server. ssh ersetzt das unsichere rlogin und rsh und bietet sichere verschlüsselte Kommunikation zwischen zwei nicht vertrauenswürdigen Hosts über ein unsicheres Netzwerk wie das Internet. Ubuntu Desktop und minimaler Ubuntu-Server werden nicht mit installiertem sshd geliefert. Mit den folgenden Schritten können Sie den SSH-Server jedoch problemlos in Ubuntu installieren.
 
@@ -137,17 +136,19 @@ ssh userName@Your-server-name-IP
 ssh selo@jenkins
 ```
 
-## 2. Installation von Jenkins Server 
+### 2. Installation von Jenkins Server 
 
 ![CICD!](images/jenkinsprofil.png)
 
 a. Update und Installation von Git, Docker, Docker-Compose OpenJDK.11, Gradle
 
+``` bash 
 sudo apt update -y
+```
+![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
 
+``` bash 
 sudo install git -y
-
-##
 
 sudo apt install apt-transport-https ca-certificates curl software-properties-common
 
@@ -168,11 +169,9 @@ sudo usermod -aG docker jenkins
 
 docker run --rm hello-world
 
-wenn benötigt login to Docker-Hub
+## wenn benötigt login to Docker-Hub
 
 docker login -u docker-registry-username
-
-
 
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
@@ -186,11 +185,11 @@ cd ~/compose-demo
 
 nano ./docker-registry-compose.yaml
 
-Prüfen Sie, ob Java bereits installiert ist:
+## prüfen Sie, ob Java bereits installiert ist:
 
 java -version
 
-Wenn Java derzeit nicht installiert ist, 
+## Wenn Java derzeit nicht installiert ist, 
 
 sudo apt install openjdk-11-jdk
 
@@ -200,7 +199,7 @@ javac -version
 
 sudo update-alternatives --config java
 
-Öffnen Sie die Startdatei ~/.bashrc mit einem Texteditor Ihrer Wahl und fügen Sie die folgenden Definitionen am Ende der Datei hinzu:
+## Öffnen Sie die Startdatei ~/.bashrc mit einem Texteditor Ihrer Wahl und fügen Sie die folgenden Definitionen am Ende der Datei hinzu:
 
 # [...]
 
@@ -210,8 +209,10 @@ export PATH=$PATH:$JAVA_HOME/bin
 
 echo $JAVA_HOME
 
-Installieren Gradle
+```
 
+Installieren Gradle
+``` bash
 wget https://services.gradle.org/distributions/gradle-${VERSION}-bin.zip -P /tmp
 
 sudo unzip -d /opt/gradle /tmp/gradle-${VERSION}-bin.zip
@@ -229,10 +230,12 @@ sudo chmod +x /etc/profile.d/gradle.sh
 source /etc/profile.d/gradle.sh
 
 gradle -v
+```
 
-## b. Schreiben von Dockerfile
-### Dockerfile 
-'''
+#### b. Schreiben von Dockerfile
+***Dockerfile***
+
+```Dockerfile
 
   FROM adoptopenjdk/openjdk11
 
@@ -244,17 +247,18 @@ gradle -v
 
   CMD  ["java","-jar", "./containertest-0.0.1-SNAPSHOT.jar"]
 
-'''
-## c. Installation von Jenkins
+```
+
+#### c. Installation von Jenkins
 
 Fügen Sie dem System den Repository-Schlüssel hinzu:
-
+```bash
 wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
-
+```
 Nachdem der Schlüssel hinzugefügt wurde, kehrt das System mit OK zurück.
 
 Als nächstes fügen wir die Debian-Paket-Repository-Adresse an die sources.list des Servers an:
-
+```bash
 sudo sh -c 'echo deb http://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
 sudo apt update
 
@@ -266,7 +270,7 @@ sudo systemctl status jenkins
 
 sudo systemctl start jenkins
 
-Öffnen der Firewall
+## Öffnen der Firewall
 
 sudo ufw allow 8080 
 sudo ufw allow OpenSSH  
@@ -274,17 +278,18 @@ sudo ufw allow OpenSSH
 sudo ufw enable
 
 sudo ufw status
+```
 
-Setting Up Jenkins
+***Setting Up Jenkins***
 
 Um Ihre Installation einzurichten, besuchen Sie Jenkins auf dem Standardport 8080 und verwenden Sie dabei ## Ihren Serverdomänennamen oder Ihre IP-Adresse: http://your_server_ip_or_domain:8080
 
 Sie sollten den Bildschirm „Jenkins entsperren“ erhalten, der den Speicherort des anfänglichen Passworts anzeigt:
 
 ![unlock!](images/unlockJenkins.png)
-
+```bash
 sudo cat /var/lib/jenkins/secrets/initialAdminPassword
-
+```
 ![admin!](images/firstAdmin.png)
 
 ![costomize!](images/costomizeJenkins.png)
@@ -293,15 +298,15 @@ sudo cat /var/lib/jenkins/secrets/initialAdminPassword
 
 ![ready!](images/jenkinsReady.png)
 
-## Auf Wunch kann Jenkins Server als Docker-Container installiert wurden. 
-
+***Auf Wunch kann Jenkins Server als Docker-Container installiert wurden.***
+```bash
 docker run --name myjenkins -p 8080:8080 -p 50000:50000 -v ~/$(USER):/var/jenkins_home jenkins
+```
 
+### 3. Installation von Docker-Registry Server
 
-## 3. Installation von Docker-Registry Server
-
-a. Update und Installation von Git, Docker, Docker-Compose 
-
+#### a. Update und Installation von Git, Docker, Docker-Compose 
+```bash
 sudo apt update -y
 
 sudo apt update
@@ -330,24 +335,26 @@ wenn benötigt login to Docker-Hub
 
 docker login -u docker-registry-username
 
-Installing Docker Compose
+## Installing Docker Compose
 
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
 sudo chmod +x /usr/local/bin/docker-compose
 
 docker-compose --version
+```
 
+#### b. Schreiben von Docker-Compose File
 
-## b. Schreiben von Docker-Compose File
-
+```bash
 mkdir ~/docker-compose
 
 cd ~/docker-compose
 
 nano ./docker-registry-compose.yaml
-
-,,, version: '3'
+```
+```docker
+version: '3'
 
 services:
 
@@ -384,29 +391,32 @@ services:
             ENV_DOCKER_REGISTRY_PORT: 5000
 
         ,,,,
+```
 
-# RUN
-
+ ***RUN***
+```bash
 docker-compose -f docker-compose.yaml up
+```
 
-## 4. Installation von Deployment Server 
+### 4. Installation von Deployment Server 
 
-## a. Update und Installation von Git, Docker, Docker-Compose OpenJDK.11, Gradle
+#### a. Update und Installation von Git, Docker, Docker-Compose OpenJDK.11, Gradle
 
 Nach dem Installieren, git, openjdk11, docker, docker.compose, gradle,
 Installieren Minikube 
 
-## b. Installation von Minikube, kubectl
+#### b. Installation von Minikube, kubectl
 
+```bash
 wget https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
 
 chmod +x minikube-linux-amd64
 
 sudo mv minikube-linux-amd64 /usr/local/bin/minikube
 
- minikube version
+minikube version
 
-Installieren kubectl
+## Installieren kubectl
 
 curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
 
@@ -414,15 +424,15 @@ chmod +x ./kubectl
 
 sudo mv ./kubectl /usr/local/bin/kubectl
 
-Starten minikube
+### Starten minikube
 
 minikube start
+```
 
-
-## c. Schreiben von Deployment und Service files for Kubernetes Cluster
+#### c. Schreiben von Deployment und Service files for Kubernetes Cluster
 Deployment und Service Files
 
-,,, 
+```yaml
 apiVersion: apps/v1
 
 kind: Deployment
@@ -492,57 +502,63 @@ spec:
       
       port: 9898
 
-,,,,
-
+```
+```bash
 kubectl apply -f deployment.yaml
 
 minikube service springapp-service --url
 
 curl $(minikube service springapp-service --url)
-
+```
 
 ## B. Konfigurationen von Jenkins
 
-## 1. Global Tool Konfigurationen
+### 1. Global Tool Konfigurationen
 Wir öffnen http://<IP_jenkinsServer>:8080. Danach gehen wir auf Dashboard/Manage_Jenkins/Global_Tool_Configurations.
 
 ![global!](images/globalTool.png)
 
-##	a. Spezifizierung der Home Directory von Git
+####	a. Spezifizierung der Home Directory von Git
 
 
     gehen wir auf Git-Feld, und wir geben ein :
     Name: Git
     Path_to_Git_executable:git
 
-    Wenn die Path von Git-Executable nicht bekannt, kann es mit which befehl determiniert werden. 
+   
      
-     " which git"
+  ```bash
+    #  Wenn die Path von Git-Executable nicht bekannt, kann es mit which befehl determiniert werden. 
+     which git
+  ```
 
 ![git1!](images/gtcGit1.png)
 
 ![git2!](images/gtcGit2.png)
 
-##		b. Spezifizierung der Home Directory von Docker
+#### b. Spezifizierung der Home Directory von Docker
     gehen wir auf Docker-Feld, und wir geben ein :
     Name: docker-<version>
     JAVA_HOME: /usr/bin/docker
 
+    
+  ```bash
     ### Wenn die Path von Home_Direktory nicht bekannt, kann es mit which befehl determiniert werden. 
-     
-     " which docker"
+     which docker
+  ```
 ![Docker1!](images/gtcDocker1.png)
 
 ![Docker2!](images/gtcDocker2.png)
 
-##		c. Spezifizierung der Home Directory von OpenJDK-11
+#### c. Spezifizierung der Home Directory von OpenJDK-11
     gehen wir auf Java-Feld, und wir geben ein :
     Name: java-11
     JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
-
+  
+    ```bash
     ### Wenn die Path von Home_Direktory nicht bekannt, kann es mit which befehl determiniert werden. 
-     
-     " which java"
+     which java
+    ```
 
 ![Java1!](images/gtcJava1.png)
 
@@ -552,63 +568,80 @@ Wir öffnen http://<IP_jenkinsServer>:8080. Danach gehen wir auf Dashboard/Manag
      gehen wir auf Gradle-Feld, und wir geben ein :
     Name: gradle-<version>
     JAVA_HOME: /opt/gradle/gradle-<version>
-
-    ### Wenn die Path von Home_Direktory nicht bekannt, kann es mit which befehl determiniert werden. 
-     
-     " which gradle"
+ 
+   ```bash
+     ### Wenn die Path von Home_Direktory nicht bekannt, kann es mit which befehl determiniert werden. 
+     which gradle
+  ```
 
 ![Gradle1!](images/gtcGradle1.png)
 
 ![Gradle2!](images/gtcGradle2.png)
 
-## 2. Docker-Registry Server und Deployment Server als Agent Knoten von Jenkins Konfigurieren
+### 2. Docker-Registry Server und Deployment Server als Agent Knoten von Jenkins Konfigurieren
 
 Um Prozesse im Rahmen der CI/CD Pipeline auf anderen Nodes mit Jenkins Server auszuführen, sollten diese Nodes natürlich als Agenten gegenüber Jenkins Server definiert werden.
 Dazu müssen wir eine SSH_Verbindung zwischen Jenkins_Server and Agent Node setzen und die „agent“ file vom Jenkins-Server auf den Slave-Knoten kopieren. 
 
-## a.  Schritte zum Konfigurieren der SSH-Verbindung zwischen Master- und Slave-Knoten
-- Wir  gehen  zum Jenkins Master-Server.
-- Wir  wechseln zum Benutzer "jenkins". ( jenkins funtoniert auf Agentkonoten als jenkins-user. ) 
-	„ sudo su - jenkins -s /bin/bash „
-- Wir  generieren  mit keygen einen öffentlichen und einen privaten Schlüssel. 
-	„ ssh-keygen „
-- Wir drücken bei jeder Frage die Eingabetaste, um mit den Standardoptionen fortzufahren
-- Wir  überprüfen den Ordner „.ssh“ und sehen Sie öffentliche (id_rsa.pub) und private Schlüssel (id_rsa)
-	„cd .ssh ; ls „
--Wir müssen den öffentlichen Schlüssel auf den Slave-Knoten kopieren.
-	„cat id_rsa.pub „
--Wir wählen alle Codes in id_rsa.pub aus und kopieren wir sie. Wir wechseln zum Ordner /root/.ssh auf der Slave-Knoteninstanz. 
-	„sudo su
- cd /root/.ssh „
-- Wir  öffnen die Datei „authorized_keys“ mit einem Editor und fügen wir den Code ein, den wir aus dem öffentlichen Schlüssel (id_rsa.pub) kopiert haben. Wir  speichern  die Datei „authorized_keys“. Wir  holen sich die Slave-Knoten-IP. 
-	„ ifconfig „
-- IP-Nummer kopieren und wir gehen zum Jenkins-Master-Server und testen wir die SSH-Verbindung. 
-	„ ssh root@<slave-node-ip-number> „
+#### a.  Schritte zum Konfigurieren der SSH-Verbindung zwischen Master- und Slave-Knoten
++ Wir  gehen  zum Jenkins Master-Server.
++ Wir  wechseln zum Benutzer "jenkins". ( jenkins funtoniert auf Agentkonoten als jenkins-user. ) 
+``` bash 
+sudo su - jenkins -s /bin/bash 
+``` 
++ Wir  generieren  mit keygen einen öffentlichen und einen privaten Schlüssel. 
+	``` bash 
+   ssh-keygen
+   ```
++ Wir drücken bei jeder Frage die Eingabetaste, um mit den Standardoptionen fortzufahren
++  Wir  überprüfen den Ordner „.ssh“ und sehen Sie öffentliche (id_rsa.pub) und private Schlüssel (id_rsa)
+	``` bash 
+  cd .ssh ; ls
+  ```
++ Wir müssen den öffentlichen Schlüssel auf den Slave-Knoten kopieren.
+	``` bash 
+  cat id_rsa.pub
+  ```
++ Wir wählen alle Codes in id_rsa.pub aus und kopieren wir sie. Wir wechseln zum Ordner /root/.ssh auf der Slave-Knoteninstanz. 
+``` bash 
+sudo su
+cd /root/.ssh 
+```
++ Wir  öffnen die Datei „authorized_keys“ mit einem Editor und fügen wir den Code ein, den wir aus dem öffentlichen Schlüssel (id_rsa.pub) kopiert haben. Wir  speichern  die Datei „authorized_keys“. Wir  holen sich die Slave-Knoten-IP. 
+``` bash 
+ifconfig
+```
++ IP-Nummer kopieren und wir gehen zum Jenkins-Master-Server und testen wir die SSH-Verbindung. 
+``` bash 
+ssh root@<slave-node-ip-number>
+```
 
 
-## b. die Agentendatei vom Jenkins-Server auf den Slave-Knoten zu kopieren
+#### b. die Agentendatei vom Jenkins-Server auf den Slave-Knoten zu kopieren
 
 - Wir wechseln  zum Ordner „/root“ auf der Slave-Knoteninstanz. Wir erstellen einen Ordner unter „/root“ und nennen Sie ihn „bin“. Agent-Datei vom Jenkins-Master-Server abrufen.
 
-	„ mkdir bin
-  cd bin
-  wget http://<jenkins_master_ip>:8080/jnlpJars/slave.jar „ 
+``` bash 
+mkdir bin
+cd bin
+wget http://<jenkins_master_ip>:8080/jnlpJars/slave.jar
 
-- Wir gehen zum Jenkins-Dashboard und klicken wir im linken Menü auf „Manage Jenkins“.
-- Wir wählen „Manage Nodes and Clouds“
-- Wir klicken im linken Menü auf „New Node“.
-- Wir geben „SlaveNode-1“ in das Feld „Node name“ ein und wählen wir „Permanent Agent“ aus.
-- Klicken auf die Schaltfläche "OK".
-- Wir geben „Dies ist ein Linux-Slave-Knoten für Jenkins“ in das Beschreibungsfeld ein.
-- "Number of Executors" ist die maximale Anzahl gleichzeitiger Builds, die Jenkins auf diesem Knoten ausführen kann. Wir geben in dieses Feld „1“ ein. Eigentlich ist die geeignete Anzahl zu diesem Bereich ist die Anzahl von CPU-Kerne. 
-- Ein Agent muss ein Verzeichnis haben, das Jenkins gewidmet ist. Wir geben den Pfad zu diesem Verzeichnis auf dem Agenten an. Wir geben `/usr/jenkins` in das Feld "Remote root directory" ein.
-- Geben "Linux" in das Feld "Labels" ein.
-- Wählen im Dropdown-Menü im Feld „Launch method“ die Option „Launch agent via execution of command on the master“ aus.
-- Enter `ssh -i /var/lib/jenkins/.ssh/ id_rsa  root@<slave_ip> java -jar /root/bin/slave.jar` in das Feld " Launch command " ein.
-- Wählen im Dropdown-Menü im Feld "Availability" die Option " Keep this agent online as much as possible ".
-- Klicken auf „Save“.
-- Überprüfen die Konsolenprotokolle, falls der Agent-Knoten nicht gestartet werden kann. Wenn es ein Genehmigungsproblem gibt, gehen zu „Manage Jenkins“, wählen „`In-process Script Approval“ und „approve“ Sie das Skript.
-- Gehen zum Jenkins-Dashboard. Überprüfen die Master- und Slave-Knoten im linken Menü.
+```
++ Wir gehen zum Jenkins-Dashboard und klicken wir im linken Menü auf „Manage Jenkins“.
++ Wir wählen „Manage Nodes and Clouds“
++ Wir klicken im linken Menü auf „New Node“.
++ Wir geben „SlaveNode-1“ in das Feld „Node name“ ein und wählen wir „Permanent Agent“ aus.
++ Klicken auf die Schaltfläche "OK".
++ Wir geben „Dies ist ein Linux-Slave-Knoten für Jenkins“ in das Beschreibungsfeld ein.
++ "Number of Executors" ist die maximale Anzahl gleichzeitiger Builds, die Jenkins auf diesem Knoten ausführen kann. Wir geben in dieses Feld „1“ ein. Eigentlich ist die geeignete Anzahl zu diesem Bereich ist die Anzahl von CPU-Kerne. 
++ Ein Agent muss ein Verzeichnis haben, das Jenkins gewidmet ist. Wir geben den Pfad zu diesem Verzeichnis auf dem Agenten an. Wir geben `/usr/jenkins` in das Feld "Remote root directory" ein.
++ Geben "Linux" in das Feld "Labels" ein.
++ Wählen im Dropdown-Menü im Feld „Launch method“ die Option „Launch agent via execution of command on the master“ aus.
++ Enter `ssh -i /var/lib/jenkins/.ssh/ id_rsa  root@<slave_ip> java -jar /root/bin/slave.jar` in das Feld " Launch command " ein.
++ Wählen im Dropdown-Menü im Feld "Availability" die Option " Keep this agent online as much as possible ".
++ Klicken auf „Save“.
++  Überprüfen die Konsolenprotokolle, falls der Agent-Knoten nicht gestartet werden kann. Wenn es ein Genehmigungsproblem gibt, gehen zu „Manage Jenkins“, wählen „`In-process Script Approval“ und „approve“ Sie das Skript.
++ Gehen zum Jenkins-Dashboard. Überprüfen die Master- und Slave-Knoten im linken Menü.
 
 ![Node1!](images/gtcNode1.png)
 ![Node2!](images/gtcNode2.png)
@@ -621,11 +654,11 @@ Eine Continuous-Delivery-Pipeline ist ein automatisierter Ausdruck Ihres Prozess
 Jenkins-Pipelines können mithilfe einer Textdatei namens JenkinsFile definiert werden. Wir können die Pipeline mithilfe von JenkinsFile als Code implementieren, und dies kann mithilfe einer domänenspezifischen Sprache (DSL) definiert werden. Mit JenkinsFile können wir die Schritte schreiben, die zum Ausführen einer Jenkins-Pipeline erforderlich sind.
 Es gibt zwei Arten von Syntax, die zum Definieren Ihrer JenkinsFile verwendet werden.
 
-## 1. Deklarativ: Die deklarative Pipeline-Syntax bietet eine einfache Möglichkeit, Pipelines zu erstellen. Es enthält eine vordefinierte Hierarchie zum Erstellen von Jenkins-Pipelines.
+### 1. Deklarativ: Die deklarative Pipeline-Syntax bietet eine einfache Möglichkeit, Pipelines zu erstellen. Es enthält eine vordefinierte Hierarchie zum Erstellen von Jenkins-Pipelines.
 ![board!](images/pipelineBoard.png)
 Jenkinsfile (Deklerative Pipeline)
-…
-	pipeline {
+```Jenkinsfile
+pipeline {
 		agent none
 		stages {
 			stage('Build Gradle') {
@@ -634,11 +667,12 @@ Jenkinsfile (Deklerative Pipeline)
 			    }
 }
 }
-}…
+}
+```
 
-## 2. Geskriptet: Geskriptete Jenkins-Pipeline läuft auf dem Jenkins-Master mit Hilfe eines leichtgewichtigen Executors. Es verwendet sehr wenige Ressourcen, um die Pipeline in atomare Befehle zu übersetzen.
- 	
-	Node {
+### 2. Geskriptet: Geskriptete Jenkins-Pipeline läuft auf dem Jenkins-Master mit Hilfe eines leichtgewichtigen Executors. Es verwendet sehr wenige Ressourcen, um die Pipeline in atomare Befehle zu übersetzen.
+``` Jenkinsfile	
+Node {
 		stage ( `Build´) {
 // some Codes
 }
@@ -646,8 +680,7 @@ Jenkinsfile (Deklerative Pipeline)
 // some Codes
 }
            }
-
-
+```
 Pipeline-Konzepte
 Code: Pipelines werden im Code implementiert und in der Regel in die Quellcodeverwaltung eingecheckt, sodass Teams ihre Bereitstellungspipeline bearbeiten, überprüfen und iterieren können.
 Langlebig: Pipelines können sowohl geplante als auch ungeplante Neustarts des Jenkins-Masters überstehen.
@@ -661,7 +694,7 @@ Step: Eine einzelne Task. Grundsätzlich teilt ein Step Jenkins mit, was zu eine
 
 
 
-## 1. Schreiben von Jenkinsfile
+### 1. Schreiben von Jenkinsfile
 Nachdem wir uns bei Jenkins angemeldet haben, klicken wir auf die Menüoption „New Item“. Geben wir den Namen der Jenkins-Pipeline ein, klicken wir auf "Pipeline". Drücken wir dann die „OK“-Taste.
 
 Wir gelangen direkt zur Seite "Konfiguration" des Projekts, wählen wir den Abschnitt "Pipeline" aus und fügen wir den folgenden Code ein.
@@ -675,8 +708,8 @@ Pipelines bestehen aus mehreren Schritten, mit denen wir Anwendungen erstellen, 
 Wenn ein Schritt erfolgreich ist, geht es zum nächsten Schritt über. Wenn ein Schritt nicht korrekt ausgeführt wird, schlägt die Pipeline fehl.
 Wenn alle Schritte in der Pipeline erfolgreich abgeschlossen wurden, gilt die Pipeline als erfolgreich ausgeführt
 
-### JENKINSFILE
-
+***JENKINSFILE***
+```Jenkinsfile
 pipeline {
     agent none
     tools {
@@ -751,10 +784,11 @@ pipeline {
 
     }
 } 
+```
+--- ***
+***
 
-####
-
-## 2. Durchführung und Validierung
+### 2. Durchführung und Validierung
 
 Wenn ist alles bereit, drucken wir apply && save , danach auf dem Dashboard drucken wir " Build " konoten. Wir könner den Prozessverfahren sowohl auf dem GUI als auch im Koncoleoutpu sehen.
 
